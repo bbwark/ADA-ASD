@@ -1,0 +1,75 @@
+//
+//  InsertNumbersView.swift
+//  Binary Search Tree Demo
+//
+//  Created by Bruno De Vivo on 27/03/23.
+//
+
+import SwiftUI
+
+@available(iOS 16.1, *)
+struct InsertNumbersView: View {
+    var model : ContentViewViewModel?
+    
+    @State var textContent = "";
+    @State var alertSuccess = false
+    @State var alertFail = false
+    
+    var body: some View {
+        VStack{
+            Text("Insert here one or more numbers separated by commas:")
+                .font(.system(size: 20))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 50.0)
+                .offset(y: -20)
+            
+            TextField("Example: 1, 2, 3...", text: $textContent)
+                .padding(.horizontal, 50.0)
+            
+            Button {
+                
+                do{
+                    try insertIntoBinaryTree(numbersString: textContent)
+                    alertSuccess.toggle()
+                    textContent = ""
+                }
+                catch InsertionError.invalidNumbers{
+                    alertFail.toggle()
+                    textContent = ""
+                }
+                catch{
+                    print("something wrong")
+                }
+                
+                
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .frame(width: 120, height: 50)
+                        .cornerRadius(10)
+                        .shadow(radius: 2)
+                    Text("Confirm")
+                        .foregroundColor(.white)
+                        .fontWeight(.semibold)
+                }
+            }
+            .padding(.top, 20.0)
+            .alert("Insertion succeeded!", isPresented: $alertSuccess) {
+                Button("OK", role: .cancel){
+                    //TODO: Navigate back to first view; potrebbe proporre se voler inserire altro e quindi rimanere nella stessa view oppure tornare indietro, o tornare indietro e basta
+                }
+            }
+            .alert("Insertion failed!\nInvalid characters has been inserted, try again.", isPresented: $alertFail){
+                Button("OK", role: .cancel){}
+            }
+        }
+        .textFieldStyle(.roundedBorder)
+    }
+}
+
+@available(iOS 16.1, *)
+struct InsertNumbersView_Previews: PreviewProvider {
+    static var previews: some View {
+        InsertNumbersView()
+    }
+}
