@@ -18,7 +18,7 @@ struct ContentView: View {
                     .shadow(radius: 2)
                 
                 NavigationLink {
-                    InsertNumbersView()
+                    InsertNumbersView(model: model)
                 } label: {
                     ZStack{
                         button
@@ -30,7 +30,7 @@ struct ContentView: View {
                 }
                 
                 NavigationLink {
-                    SearchNumberView()
+                    SearchNumberView(model: model)
                 } label: {
                     ZStack{
                         button
