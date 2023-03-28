@@ -9,4 +9,5 @@ import Foundation
 
 enum InsertionError : Error {
     case invalidNumbers
+    case invalidNumber
 }

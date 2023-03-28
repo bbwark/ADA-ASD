@@ -17,17 +17,13 @@ struct InsertNumbersView: View {
     
     var body: some View {
         VStack{
-            Text("Insert here one or more numbers separated by commas:")
-                .font(.system(size: 20))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 50.0)
-                .offset(y: -20)
+            
+            CaptionView()
             
             TextField("Example: 1, 2, 3...", text: $textContent)
                 .padding(.horizontal, 50.0)
             
             Button {
-                
                 do{
                     try insertIntoBinaryTree(numbersString: textContent)
                     alertSuccess.toggle()
@@ -40,36 +36,52 @@ struct InsertNumbersView: View {
                 catch{
                     print("something wrong")
                 }
-                
-                
             } label: {
-                ZStack {
-                    Rectangle()
-                        .frame(width: 120, height: 50)
-                        .cornerRadius(10)
-                        .shadow(radius: 2)
-                    Text("Confirm")
-                        .foregroundColor(.white)
-                        .fontWeight(.semibold)
-                }
+                ConfirmButtonView()
             }
-            .padding(.top, 20.0)
-            .alert("Insertion succeeded!", isPresented: $alertSuccess) {
+            .alert("Insertion succeeded!\nAnother insertion?", isPresented: $alertSuccess) {
                 Button("OK", role: .cancel){
-                    //TODO: Navigate back to first view; potrebbe proporre se voler inserire altro e quindi rimanere nella stessa view oppure tornare indietro, o tornare indietro e basta
+                    //TODO: Navigate back to first view oppure potrebbe proporre se voler inserire altro e quindi rimanere nella stessa view oppure tornare indietro
                 }
             }
-            .alert("Insertion failed!\nInvalid characters has been inserted, try again.", isPresented: $alertFail){
+            .alert("Invalid characters has been inserted, try again.", isPresented: $alertFail){
                 Button("OK", role: .cancel){}
             }
         }
         .textFieldStyle(.roundedBorder)
     }
+    
+    
 }
 
 @available(iOS 16.1, *)
 struct InsertNumbersView_Previews: PreviewProvider {
     static var previews: some View {
         InsertNumbersView()
+    }
+}
+
+private struct CaptionView: View {
+    var body: some View{
+            Text("Insert here one or more numbers separated by commas:")
+                .font(.system(size: 20))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 50.0)
+                .offset(y: -20)
+    }
+}
+
+private struct ConfirmButtonView: View{
+    var body: some View{
+            ZStack {
+                Rectangle()
+                    .frame(width: 120, height: 50)
+                    .cornerRadius(10)
+                    .shadow(radius: 2)
+                Text("Confirm")
+                    .foregroundColor(.white)
+                    .fontWeight(.semibold)
+            }
+            .padding(.top, 20.0)
     }
 }

@@ -17,8 +17,8 @@ struct ContentView: View {
                     .foregroundColor(.accentColor)
                     .shadow(radius: 2)
                 
-                Button {
-                    //InsertNumbersView Navigation
+                NavigationLink {
+                    InsertNumbersView()
                 } label: {
                     ZStack{
                         button
@@ -29,8 +29,8 @@ struct ContentView: View {
                     }
                 }
                 
-                Button {
-                    //SearchNumberView Navigation
+                NavigationLink {
+                    SearchNumberView()
                 } label: {
                     ZStack{
                         button
