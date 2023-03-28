@@ -15,7 +15,9 @@ extension InsertNumbersView {
             let numbers = castToArray(numbers: numbersString)
             numbers.forEach { i in
                 model?.insertNumber(num: i)
+                model?.dataset.append(i)
             }
+            model?.saveTree(data: model?.dataset ?? [])
         }
         else{
             throw InsertionError.invalidNumbers

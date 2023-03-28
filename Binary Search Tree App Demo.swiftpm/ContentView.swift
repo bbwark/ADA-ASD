@@ -7,6 +7,7 @@ struct ContentView: View {
     
     
     @State private var infoModal = false
+    @State private var clearAlert = false
     
     var body: some View {
         ZStack {
@@ -59,10 +60,12 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    model.createNewTree()
+                    model.clearTree()
+                    clearAlert.toggle()
                 } label: {
                     Text("Clear Tree")
                 }
+                .alert("Tree Cleared", isPresented: $clearAlert) {}
             }
         }
         .sheet(isPresented: $infoModal) {

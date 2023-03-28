@@ -11,17 +11,27 @@ import SwiftUI
 @available(iOS 16.1, *)
 class ContentViewViewModel : ObservableObject {
     
-    private var userdefault = UserDefaults.standard
+    private var persistency = UserDefaults.standard
     private var bst = BinarySearchTree<Int>()
+    var dataset : [Int] = []
     
-    func createNewTree() -> Void {
-        let emptyTree = BinarySearchTree<Int>()
-        bst = emptyTree
-        saveTree(data: bst)
+    init() {
+        if let data = persistency.object(forKey: "tree"){
+            dataset = data as! [Int]
+            dataset.forEach { i in
+                bst.insert(i)
+            }
+        }
     }
     
-    private func saveTree(data: BinarySearchTree<Int>) {
-        userdefault.set(data, forKey: "tree")
+    func clearTree() -> Void {
+        dataset = []
+        bst = BinarySearchTree<Int>()
+        saveTree(data: dataset)
+    }
+    
+    func saveTree(data: [Int]) {
+        persistency.set(dataset, forKey: "tree")
     }
     
     func searchNumber(num: Int) -> Bool{
