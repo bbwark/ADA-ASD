@@ -42,6 +42,18 @@ struct ContentView: View {
                     }
                 }
                 
+                NavigationLink {
+                    ShowTreeView(model: model)
+                } label: {
+                    ZStack{
+                        button
+                        Text("Show the Tree")
+                            .font(.system(size: 20))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                    }
+                }
+                
                 Button {
                     infoModal.toggle()
                 } label: {

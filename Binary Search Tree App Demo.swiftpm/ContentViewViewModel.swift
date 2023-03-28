@@ -12,7 +12,7 @@ import SwiftUI
 class ContentViewViewModel : ObservableObject {
     
     private var persistency = UserDefaults.standard
-    private var bst = BinarySearchTree<Int>()
+    var bst = BinarySearchTree<Int>()
     var dataset : [Int] = []
     
     init() {

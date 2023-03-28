@@ -16,7 +16,7 @@ class TreeNode<T: Comparable> {
 }
 
 class BinarySearchTree<T: Comparable> {
-    private var root: TreeNode<T>?
+    var root: TreeNode<T>?
     
     func insert(_ value: T) {
         root = insertNode(root, withValue: value)
